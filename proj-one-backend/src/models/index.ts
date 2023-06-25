@@ -7,5 +7,3 @@ export const ModelObj = {
   User,
   Role,
 };
-
-
