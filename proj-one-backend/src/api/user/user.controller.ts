@@ -1,25 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Request, Response } from 'express';
 
 @Controller('')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @Get('role-list')
+  async getRoles(@Req() req: Request, @Res() res: Response) {
+    return this.userService.getRoles(req, res)
   }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
+  @Post('user-list')
+  async createUser(@Req() req: Request, @Res() res: Response, @Body() createUserDto: CreateUserDto) {
+    return this.userService.createUser(req, res, createUserDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @Get('user-list/:id?')
+  async getUser(@Req() req: Request, @Res() res: Response) {
+    return this.userService.getUser(req, res);
   }
 
   @Patch(':id')

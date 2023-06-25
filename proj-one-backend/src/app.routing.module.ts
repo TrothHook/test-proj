@@ -16,5 +16,6 @@ export const ROUTES = [
 
 @Module({
   imports: [RouterModule.register(ROUTES), UserModule],
+  providers: []
 })
 export class AppRoutingModule {}
